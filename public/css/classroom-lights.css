@@ -1,0 +1,70 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 95vh;
+  margin: 0;
+  background-color: #add8e6; /* Light blue background color */
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.toggle-buttons,
+.blink-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.toggle-buttons button,
+.blink-buttons button {
+  margin-bottom: 10px; /* Add margin between buttons */
+}
+
+.light-section {
+  display: flex;
+  gap: 10px; /* Adjust the gap between sections */
+  margin-bottom: 10px; /* Add margin for spacing */
+}
+
+.sub-section {
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    60px
+  ); /* Adjust the width of the lights and number of columns */
+  grid-template-rows: repeat(
+    3,
+    60px
+  ); /* Adjust the height of the lights and number of rows */
+  gap: 10px; /* Adjust the gap between lights */
+}
+
+.light,
+.hole {
+  width: 60px; /* Adjust the width of the lights */
+  height: 60px; /* Adjust the height of the lights */
+  transition: background-color 0.5s ease; /* Smooth transition effect */
+}
+
+.light-section.lights-on .light {
+    background-color: #ffd700; /* Dead yellow color */
+}
+
+.blink {
+  background-color: #00008b; /* Dark blue color for blink */
+  animation: blinkAnimation 1s infinite; /* Blink animation */
+}
+
+@keyframes blinkAnimation {
+  50% {
+    background-color: transparent; /* Blinking effect */
+  }
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/classroom-lights.css" />
+    <title>Classroom Lights</title>
+  </head>
+  <body>
+    <div class="button-container">
+      <div class="toggle-buttons">
+        <button onclick="toggleLights('section1')">Toggle Section 1</button>
+        <button onclick="toggleLights('section2')">Toggle Section 2</button>
+        <button onclick="toggleLights('section3')">Toggle Section 3</button>
+      </div>
+      <div class="blink-buttons">
+        <button onclick="manualBlink('section1-sub1')">
+          Manual Blink Section 1 - Subsection 1
+        </button>
+        <button onclick="manualBlink('section1-sub2')">
+          Manual Blink Section 1 - Subsection 2
+        </button>
+        <button onclick="manualBlink('section2-sub1')">
+          Manual Blink Section 2 - Subsection 1
+        </button>
+        <button onclick="manualBlink('section2-sub2')">
+          Manual Blink Section 2 - Subsection 2
+        </button>
+        <button onclick="manualBlink('section3-sub1')">
+          Manual Blink Section 3 - Subsection 1
+        </button>
+        <button onclick="manualBlink('section3-sub2')">
+          Manual Blink Section 3 - Subsection 2
+        </button>
+      </div>
+    </div>
+
+    <div class="light-section" id="section1">
+      <div class="sub-section" id="section1-sub1">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="hole"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+      </div>
+      <div class="sub-section" id="section1-sub2">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="hole"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+      </div>
+    </div>
+
+    <div class="light-section" id="section2">
+      <div class="sub-section" id="section2-sub1">
+        <div class="light"></div>
+        <div class="hole"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="hole"></div>
+      </div>
+      <div class="sub-section" id="section2-sub2">
+        <div class="hole"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="hole"></div>
+        <div class="light"></div>
+      </div>
+    </div>
+
+    <div class="light-section" id="section3">
+      <div class="sub-section" id="section3-sub1">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="hole"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+      </div>
+      <div class="sub-section" id="section3-sub2">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="hole"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+      </div>
+    </div>
+
+    <script src="javascripts/classroom-lights.js"></script>
+  </body>
+</html>

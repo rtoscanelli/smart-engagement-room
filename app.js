@@ -62,6 +62,10 @@ app.get("/", (_, res) => {
     res.sendFile(path.join(__dirname, "views", "index.html"));
 });
 
+app.get("/classroom-lights.html", (_, res) => {
+    res.sendFile(path.join(__dirname, "views", "classroom-lights.html"));
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
