@@ -1,70 +1,202 @@
+@font-face {
+    font-family: "Poppins";
+    src: url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins";
+    --primary-color: #07b0ff;
+    --secondary-color: #dedcff;
+    --text-color: #050315;
+    --background-color: #fbfbfe;
+    --header-color: #ffffff;
+    --total-students-color: #07b0ff;
+    --present-students-color: #00b894;
+    --absent-students-color: #ff7675;
+}
+
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 95vh;
-  margin: 0;
-  background-color: #add8e6; /* Light blue background color */
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--background-color);
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+div.logo {
+    background-color: var(--header-color);
+    color: var(--text-color);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: left;
+}
+
+#logo {
+    width: 40px;
+    height: auto;
+    margin-right: 1rem;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+header .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+nav {
+    background-color: var(--header-color);
+    padding: 0.5rem;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: left;
+}
+
+nav ul li {
+    margin-right: 1rem;
+}
+
+nav ul li a {
+    height: 100px;
+    color: #000;
+    text-decoration: none;
+    padding: 0.8rem 0.5rem;
+    color: #646464;
+}
+
+nav ul li a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+nav ul li a:hover {
+    color: var(--text-color);
+    border-bottom: 2px solid var(--text-color);
+}
+
+main {
+    margin: 2rem auto;
+    width: 80%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.lights-container {
+    display: grid;
+    grid-template-columns: repeat(2, 120px);
+    grid-template-rows: repeat(3, 120px);
+    gap: 10px;
+}
+
+.light {
+    width: 100px;
+    height: 100px;
+    border-radius: 25%;
+    transition: background-color 0.5s ease;
+    transition: transform 0.3s ease;
+    background-color: var(--secondary-color);
+    color: var(--header-color);
+    text-align: center;
+    line-height: 100px;
+    font-size: 3rem;
+}
+
+.light:hover {
+    transform: translateY(-10px);
+}
+
+.on {
+    background-color: #ffc533;
+    box-shadow: 0 0 20px #ffc533;
+}
+
+.blink {
+    background-color: var(--absent-students-color);
+    box-shadow: 0 0 20px var(--absent-students-color);
+    animation: blinkAnimation 1s infinite;
 }
 
 .button-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .toggle-buttons,
 .blink-buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    display: flex;
+    justify-content: space-around;
 }
 
-.toggle-buttons button,
-.blink-buttons button {
-  margin-bottom: 10px; /* Add margin between buttons */
+button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weigh: 400px;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+    transition: background-color 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
+    margin-bottom: 10px;
 }
 
-.light-section {
-  display: flex;
-  gap: 10px; /* Adjust the gap between sections */
-  margin-bottom: 10px; /* Add margin for spacing */
+button:hover {
+    color: var(--header-color);
 }
 
-.sub-section {
-  display: grid;
-  grid-template-columns: repeat(
-    2,
-    60px
-  ); /* Adjust the width of the lights and number of columns */
-  grid-template-rows: repeat(
-    3,
-    60px
-  ); /* Adjust the height of the lights and number of rows */
-  gap: 10px; /* Adjust the gap between lights */
+.toggle-buttons button:hover {
+    background-color: #ffc533;
+    box-shadow: 0 0 20px #ffc533;
+    transform: translateY(-5px);
 }
 
-.light,
-.hole {
-  width: 60px; /* Adjust the width of the lights */
-  height: 60px; /* Adjust the height of the lights */
-  transition: background-color 0.5s ease; /* Smooth transition effect */
-}
-
-.light-section.lights-on .light {
-    background-color: #ffd700; /* Dead yellow color */
-}
-
-.blink {
-  background-color: #00008b; /* Dark blue color for blink */
-  animation: blinkAnimation 1s infinite; /* Blink animation */
+.blink-buttons button:hover {
+    background-color: var(--absent-students-color);
+    box-shadow: 0 0 20px var(--absent-students-color);
+    transform: translateY(-5px);
 }
 
 @keyframes blinkAnimation {
-  50% {
-    background-color: transparent; /* Blinking effect */
-  }
+    50% {
+        background-color: #ffc533;
+        box-shadow: 0 0 20px #ffc533;
+    }
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: var(--header-color);
+    font-weight: bold;
+    text-align: center;
+    padding: 1rem;
 }

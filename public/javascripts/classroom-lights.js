@@ -1,20 +1,12 @@
-function toggleLights(sectionId) {
-    const section = document.getElementById(sectionId);
-    section.classList.toggle("lights-on");
+function toggleLight(lightId) {
+    const light = document.getElementById(lightId);
+    light.classList.toggle("on");
 }
 
-function manualBlink(subSectionId) {
-    var lightsInSection1Sub1 = document.querySelectorAll("#section1-sub1 .light");
-    if (subSectionId === "section1-sub1") {
-        lightsInSection1Sub1.forEach(light => {
-            light.classList.add("blink");
-        }
-        );
+function blinkLight(lightId) {
+    const light = document.getElementById(lightId);
+    if (light.classList.contains("on")) {
+        light.classList.toggle("blink");
+        light.textContent = light.textContent === "" ? "🖐🏻" : "";
     }
-    setTimeout(() => {
-        lightsInSection1Sub1.forEach(light => {
-            light.classList.remove("blink");
-        }
-        );
-    }, 1000); // Adjust the duration of the blink as needed
 }
