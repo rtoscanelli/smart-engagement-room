@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Poppins';
-  src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    font-family: 'Poppins';
+    src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 }
 
 * {
@@ -13,9 +13,9 @@
     --text-color: #050315;
     --background-color: #fbfbfe;
     --header-color: #ffffff;
-    --total-students-color: #07b0ff;
-    --present-students-color: #00b894;
-    --absent-students-color: #ff7675;
+    --max-students-color: #07b0ff;
+    --average-students-color: #00b894;
+    --present-students-color: #ff7675;
 }
 
 body {
@@ -31,6 +31,11 @@ header {
     display: flex;
     flex-direction: column;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
 }
 
 div.logo {
@@ -129,30 +134,33 @@ h2 {
     transform: translateY(-10px);
 }
 
-#total-students {
-    background-color: var(--total-students-color);
+#max-students {
+    background-color: var(--max-students-color);
     box-shadow: 0 0 20px 0 rgba(7, 176, 255, 0.5);
+}
+
+#average-students {
+    background-color: var(--average-students-color);
+    box-shadow: 0 0 20px 0 rgba(0, 184, 148, 0.5);
 }
 
 #present-students {
     background-color: var(--present-students-color);
-    box-shadow: 0 0 20px 0 rgba(0, 184, 148, 0.5);
-}
-
-#absent-students {
-    background-color: var(--absent-students-color);
     box-shadow: 0 0 20px 0 rgba(255, 118, 117, 0.5);
 }
 
-section.graph {
-    background-color: #fff;
+canvas {
     border: 1px solid #e0e0e0;
-    height: 400px;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+#chart {
+    width: 100%;
+    height: auto;
 }
 
 footer {
-    position: sticky;
-    bottom: 0;
     background-color: var(--primary-color);
     color: var(--header-color);
     font-weight: bold;
