@@ -24,12 +24,21 @@ app.get("/load-data", (_, res) => {
     res.send(dataProcessor.loadDataFromFile("utils/data.json"));
 });
 
+app.post("/reset-data", (_, res) => {
+    dataProcessor.resetData();
+    res.sendStatus(200);
+});
+
 app.get("/", (_, res) => {
 	res.sendFile(path.join(__dirname, "views", "index.html"));
 });
 
-app.get("/classroom-lights.html", (_, res) => {
+app.get("/classroom-lights", (_, res) => {
 	res.sendFile(path.join(__dirname, "views", "classroom-lights.html"));
+});
+
+app.get("/admin", (_, res) => {
+    res.sendFile(path.join(__dirname, "views", "admin.html"));
 });
 
 const port = process.env.PORT || 3000;

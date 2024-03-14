@@ -60,8 +60,22 @@ function loadDataFromFile(name) {
     return getCurrentStatistics();
 }
 
+function resetData() {
+    currentStudents = 0;
+    maxStudents = 0;
+    averageStudents = 0;
+
+    presentStudentsHistory = [];
+    maxStudentsHistory = [];
+    averageStudentsHistory = [];
+    labels = [];
+
+    saveDataToFile("utils/data.json");
+}
+
 module.exports = {
     updateData,
     getCurrentStatistics,
     loadDataFromFile,
+    resetData,
 };
