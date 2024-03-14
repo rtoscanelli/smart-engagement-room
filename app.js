@@ -3,28 +3,26 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+const dataProcessor = require("./utils/process-data");
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-let data = [];
-let currentNumber = 0;
-
-async function addData(req, res, next) {
-	console.log("Received data", req.body);
-	const newData = req.body;
-	data.push(newData);
-    currentNumber = newData.totalNumber;
-	res.json(newData);
-}
-
-app.get("/number", (_, res) => {
-    res.json({ totalNumber: currentNumber });
+app.post("/data", (req, res) => {
+    dataProcessor.updateData(req.body);
+    res.sendStatus(200);
 });
 
-app.post("/data", addData);
+app.get("/number", (_, res) => {
+    res.send(dataProcessor.getCurrentStatistics());
+});
+
+app.get("/load-data", (_, res) => {
+    res.send(dataProcessor.loadDataFromFile("utils/data.json"));
+});
 
 app.get("/", (_, res) => {
 	res.sendFile(path.join(__dirname, "views", "index.html"));
