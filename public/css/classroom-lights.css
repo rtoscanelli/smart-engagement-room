@@ -13,9 +13,9 @@
     --text-color: #050315;
     --background-color: #fbfbfe;
     --header-color: #ffffff;
-    --total-students-color: #07b0ff;
-    --present-students-color: #00b894;
-    --absent-students-color: #ff7675;
+    --max-students-color: #07b0ff;
+    --average-students-color: #00b894;
+    --present-students-color: #ff7675;
 }
 
 body {
@@ -106,6 +106,47 @@ main {
     gap: 2rem;
 }
 
+.classroom {
+    border: 2px solid var(--text-color);
+    border-radius: 25px;
+    padding-top: calc(3rem + 20px);
+    padding-bottom: 3rem;
+    padding-left: calc(3rem + 20px);
+    padding-right: 3rem;
+    position: relative;
+}
+
+.board {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--average-students-color);
+    width: 60%;
+    height: 1.7rem;
+    border-radius: 0 0 10px 10px;
+    border: 3px solid #C69B35;
+    border-top: none;
+    font-size: 1.2rem;
+    font-weight: 500px;
+    color: var(--header-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.door {
+    margin-right: -0.8rem;
+    position: absolute;
+    right: 0;
+    transform: translateY(-50%);
+    background-color: var(--background-color);
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    width: 1.6rem;
+    height: 13%;
+}
+
 .lights-container {
     display: grid;
     grid-template-columns: repeat(2, 120px);
@@ -136,15 +177,22 @@ main {
 }
 
 .blink {
-    background-color: var(--absent-students-color);
-    box-shadow: 0 0 20px var(--absent-students-color);
+    background-color: var(--present-students-color);
+    box-shadow: 0 0 20px var(--present-students-color);
     animation: blinkAnimation 1s infinite;
+    animation: elevateUpDown infinite alternate 1s ease-in-out;
 }
 
 @keyframes blinkAnimation {
     50% {
         background-color: #ffc533;
         box-shadow: 0 0 20px #ffc533;
+    }
+}
+
+@keyframes elevateUpDown {
+    50% {
+        transform: translateY(-10px);
     }
 }
 
