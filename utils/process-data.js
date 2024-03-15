@@ -10,6 +10,8 @@ let averageStudentsHistory = [];
 
 let labels = [];
 
+let regions = [];
+
 
 function updateData(data) {
     console.log("Processing data...", data);
@@ -31,6 +33,15 @@ function updateData(data) {
     saveDataToFile("utils/data.json");
 }
 
+function updateRegions(data) {
+    console.log("Processing regions...", data);
+
+    data.regions.forEach((region) => {
+        const id = region.id - 1;
+        regions[id] = region;
+    });
+}
+
 function getCurrentStatistics() {
     const statistics = {
         presentStudentsHistory,
@@ -39,6 +50,10 @@ function getCurrentStatistics() {
         labels,
     };
     return statistics;
+}
+
+function getRegions() {
+    return regions;
 }
 
 function saveDataToFile(name) {
@@ -76,6 +91,8 @@ function resetData() {
 module.exports = {
     updateData,
     getCurrentStatistics,
+    updateRegions,
+    getRegions,
     loadDataFromFile,
     resetData,
 };

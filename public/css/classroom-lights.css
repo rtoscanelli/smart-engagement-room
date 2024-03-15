@@ -141,51 +141,6 @@ main {
     animation: blinkAnimation 1s infinite;
 }
 
-.button-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.toggle-buttons,
-.blink-buttons {
-    display: flex;
-    justify-content: space-around;
-}
-
-button {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weigh: 400px;
-    color: var(--text-color);
-    background-color: var(--secondary-color);
-    transition: background-color 0.3s ease;
-    transition: box-shadow 0.3s ease;
-    transition: transform 0.3s ease;
-    margin-bottom: 10px;
-}
-
-button:hover {
-    color: var(--header-color);
-}
-
-.toggle-buttons button:hover {
-    background-color: #ffc533;
-    box-shadow: 0 0 20px #ffc533;
-    transform: translateY(-5px);
-}
-
-.blink-buttons button:hover {
-    background-color: var(--absent-students-color);
-    box-shadow: 0 0 20px var(--absent-students-color);
-    transform: translateY(-5px);
-}
-
 @keyframes blinkAnimation {
     50% {
         background-color: #ffc533;

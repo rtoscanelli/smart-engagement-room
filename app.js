@@ -16,8 +16,17 @@ app.post("/data", (req, res) => {
     res.sendStatus(200);
 });
 
+app.post("/regions", (req, res) => {
+    dataProcessor.updateRegions(req.body);
+    res.sendStatus(200);
+});
+
 app.get("/number", (_, res) => {
     res.send(dataProcessor.getCurrentStatistics());
+});
+
+app.get("/regions-data", (_, res) => {
+    res.send(dataProcessor.getRegions());
 });
 
 app.get("/load-data", (_, res) => {
