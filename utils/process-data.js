@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 let currentStudents = 0;
 let maxStudents = 0;
 let averageStudents = 0;
@@ -29,8 +27,6 @@ function updateData(data) {
     averageStudentsHistory.push(averageStudents);
 
     labels.push(new Date().toLocaleTimeString());
-
-    saveDataToFile("utils/data.json");
 }
 
 function updateRegions(data) {
@@ -56,25 +52,6 @@ function getRegions() {
     return regions;
 }
 
-function saveDataToFile(name) {
-    const data = getCurrentStatistics();
-    const dataString = JSON.stringify(data, null, 2);
-    fs.writeFileSync(name, dataString);
-}
-
-function loadDataFromFile(name) {
-    if (!fs.existsSync(name)) {
-        return getCurrentStatistics();
-    }
-    const dataString = fs.readFileSync(name);
-    const data = JSON.parse(dataString);
-    presentStudentsHistory = data.presentStudentsHistory;
-    maxStudentsHistory = data.maxStudentsHistory;
-    averageStudentsHistory = data.averageStudentsHistory;
-    labels = data.labels;
-    return getCurrentStatistics();
-}
-
 function resetData() {
     currentStudents = 0;
     maxStudents = 0;
@@ -85,7 +62,7 @@ function resetData() {
     averageStudentsHistory = [];
     labels = [];
 
-    saveDataToFile("utils/data.json");
+    regions = [];
 }
 
 module.exports = {
@@ -93,6 +70,5 @@ module.exports = {
     getCurrentStatistics,
     updateRegions,
     getRegions,
-    loadDataFromFile,
     resetData,
 };

@@ -5,4 +5,8 @@ function resetData() {
     .then((res) => {
         console.log("Data reset");
     });
+    localStorage.removeItem("recentStatistics");
+    localStorage.removeItem("recentLightsData");
+
+    alert("Data has been reset");
 }

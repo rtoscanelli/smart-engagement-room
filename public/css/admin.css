@@ -121,6 +121,11 @@ button:hover {
     transform: translateY(-10px);
 }
 
+button:active {
+    background-color: var(--present-students-color);
+    color: var(--header-color);
+}
+
 footer {
     background-color: var(--primary-color);
     color: var(--header-color);

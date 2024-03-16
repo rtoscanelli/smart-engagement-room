@@ -9,22 +9,24 @@ let labels = [];
 let myChart;
 
 createGraph();
-loadData();
+loadRecentData();
 setInterval(startListening, 2000);
+
+function loadRecentData() {
+    const recentStatistics = JSON.parse(localStorage.getItem('recentStatistics'));
+    if (recentStatistics) {
+        console.log('Data loaded from Local Storage:', recentStatistics);
+        updateStatistics(recentStatistics, true);
+    }
+}
 
 function startListening() {
     fetch("/number")
         .then((res) => res.json())
         .then((data) => {
+            localStorage.setItem("recentStatistics", JSON.stringify(data));
+            console.log("Data saved to Local Storage:", data);
             updateStatistics(data);
-        });
-}
-
-function loadData() {
-    fetch("/load-data")
-        .then((res) => res.json())
-        .then((data) => {
-            updateStatistics(data, true);
         });
 }
 
