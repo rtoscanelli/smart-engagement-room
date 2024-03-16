@@ -1,4 +1,6 @@
-loadRecentData();
+window.onload = () => {
+    loadRecentData();
+}
 setInterval(startListening, 1000);
 
 function loadRecentData() {

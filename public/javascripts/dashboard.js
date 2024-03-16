@@ -9,7 +9,9 @@ let labels = [];
 let myChart;
 
 createGraph();
-loadRecentData();
+window.onload = () => {
+    loadRecentData();
+}
 setInterval(startListening, 2000);
 
 function loadRecentData() {
