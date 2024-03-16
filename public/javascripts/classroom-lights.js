@@ -2,10 +2,10 @@ loadRecentData();
 setInterval(startListening, 1000);
 
 function loadRecentData() {
-    const recentData = JSON.parse(localStorage.getItem('recentData'));
-    if (recentData) {
-        console.log('Data loaded from Local Storage:', recentData);
-        updateLights(recentData);
+    const recentLightsData = JSON.parse(localStorage.getItem('recentLightsData'));
+    if (recentLightsData) {
+        console.log('Data loaded from Local Storage:', recentLightsData);
+        updateLights(recentLightsData);
     }
 }
 
@@ -13,7 +13,7 @@ function startListening() {
     fetch("/regions-data")
         .then(res=> res.json())
         .then((data) => {
-            localStorage.setItem('recentData', JSON.stringify(data));
+            localStorage.setItem('recentLightsData', JSON.stringify(data));
             console.log('Data saved to Local Storage:', data);
             updateLights(data);
         })

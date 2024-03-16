@@ -29,10 +29,6 @@ app.get("/regions-data", (_, res) => {
     res.send(dataProcessor.getRegions());
 });
 
-app.get("/load-data", (_, res) => {
-    res.send(dataProcessor.loadDataFromFile("utils/data.json"));
-});
-
 app.post("/reset-data", (_, res) => {
     dataProcessor.resetData();
     res.sendStatus(200);
