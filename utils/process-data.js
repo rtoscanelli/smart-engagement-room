@@ -45,6 +45,7 @@ function getCurrentStatistics() {
         averageStudentsHistory,
         labels,
     };
+    console.log("Sending statistics...", statistics);
     return statistics;
 }
 
