@@ -26,8 +26,10 @@ function startListening() {
     fetch("/number")
         .then((res) => res.json())
         .then((data) => {
-            localStorage.setItem("recentStatistics", JSON.stringify(data));
-            console.log("Data saved to Local Storage:", data);
+            if (data.status === "updated") {
+                localStorage.setItem("recentStatistics", JSON.stringify(data));
+                console.log("Data saved to Local Storage:", data);
+            }
             updateStatistics(data);
         });
 }

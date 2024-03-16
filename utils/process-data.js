@@ -7,6 +7,7 @@ let maxStudentsHistory = [];
 let averageStudentsHistory = [];
 
 let labels = [];
+let status = "empty";
 
 let regions = [];
 
@@ -27,6 +28,8 @@ function updateData(data) {
     averageStudentsHistory.push(averageStudents);
 
     labels.push(new Date().toLocaleTimeString());
+
+    status = "updated";
 }
 
 function updateRegions(data) {
@@ -44,12 +47,14 @@ function getCurrentStatistics() {
         maxStudentsHistory,
         averageStudentsHistory,
         labels,
+        status,
     };
     console.log("Sending statistics...", statistics);
     return statistics;
 }
 
 function getRegions() {
+    console.log("Sending regions...", regions);
     return regions;
 }
 
@@ -62,6 +67,7 @@ function resetData() {
     maxStudentsHistory = [];
     averageStudentsHistory = [];
     labels = [];
+    status = "empty";
 
     regions = [];
 }
