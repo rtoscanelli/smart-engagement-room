@@ -9,15 +9,14 @@ let labels = [];
 let myChart;
 
 createGraph();
-window.onload = () => {
-    loadRecentData();
-}
+// window.onload = () => {
+//     loadRecentData();
+// }
 setInterval(startListening, 2000);
 
 function loadRecentData() {
     const recentStatistics = JSON.parse(localStorage.getItem('recentStatistics'));
     if (recentStatistics) {
-        console.log('Data loaded from Local Storage:', recentStatistics);
         updateStatistics(recentStatistics, true);
     }
 }
@@ -44,6 +43,7 @@ function updateStatistics(data, load = false) {
     }
 
     if(load) {
+        console.log('Data loaded from Local Storage:', recentStatistics);
         presentStudentsHistory = data.presentStudentsHistory;
         maxStudentsHistory = data.maxStudentsHistory;
         averageStudentsHistory = data.averageStudentsHistory;
