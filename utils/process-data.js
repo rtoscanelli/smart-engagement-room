@@ -59,6 +59,7 @@ function getRegions() {
 }
 
 function resetData() {
+    console.log("Resetting data...");
     currentStudents = 0;
     maxStudents = 0;
     averageStudents = 0;
