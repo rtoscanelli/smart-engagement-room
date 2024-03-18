@@ -28,19 +28,19 @@ function startListening(load = false) {
 }
 
 function updateStatistics(data, load = false) {
-    if (version === data.version) {
-        console.log("No new data, with version: ", data.version);
+    if (version == data.version) {
+        console.log("No new data, with version: ", data.version, " and my version: ", version);
         return;
     }
     if (load) {
-        console.log("Loading data... with version: ", data.version);
+        console.log("Loading data... with version: ", data.version, " and my version: ", version);
         presentStudentsHistory = data.presentStudentsHistory;
         maxStudentsHistory = data.maxStudentsHistory;
         averageStudentsHistory = data.averageStudentsHistory;
         labels = data.labels;
         version = data.version;
     } else {
-        console.log("Updating data... with version: ", data.version);
+        console.log("Updating data... with version: ", data.version, " and my version: ", version);
         presentStudentsHistory.push(data.presentStudentsHistory[data.presentStudentsHistory.length - 1]);
         maxStudentsHistory.push(data.maxStudentsHistory[data.maxStudentsHistory.length - 1]);
         averageStudentsHistory.push(data.averageStudentsHistory[data.averageStudentsHistory.length - 1]);
