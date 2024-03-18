@@ -35,9 +35,9 @@ function updateStatistics(data) {
     labels = data.labels;
     version = data.version;
 
-    let presentStudents = presentStudentsHistory ? presentStudentsHistory[presentStudentsHistory.length - 1] : 0;
-    let maxStudents = maxStudentsHistory ? maxStudentsHistory[maxStudentsHistory.length - 1] : 0;
-    let averageStudents = averageStudentsHistory ? averageStudentsHistory[averageStudentsHistory.length - 1] : 0;
+    let presentStudents = presentStudentsHistory.lenght > 0 ? presentStudentsHistory[presentStudentsHistory.length - 1] : 0;
+    let maxStudents = maxStudentsHistory.lenght > 0 ? maxStudentsHistory[maxStudentsHistory.length - 1] : 0;
+    let averageStudents = averageStudentsHistory.lenght > 0 ? averageStudentsHistory[averageStudentsHistory.length - 1] : 0;
 
     updateCards("present-students", presentStudents);
     updateCards("max-students", maxStudents);
