@@ -45,6 +45,7 @@ function updateStatistics(data, load = false) {
         maxStudentsHistory.push(data.maxStudentsHistory[data.maxStudentsHistory.length - 1]);
         averageStudentsHistory.push(data.averageStudentsHistory[data.averageStudentsHistory.length - 1]);
         labels.push(data.labels[data.labels.length - 1]);
+        version = data.version;
     }
 
     console.log(presentStudentsHistory, maxStudentsHistory, averageStudentsHistory, labels);
