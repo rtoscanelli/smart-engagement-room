@@ -3,6 +3,20 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+const mongoose = require("mongoose");
+const uri = "mongodb+srv://Admin:mongodbadmin@mycluster.n2rbgja.mongodb.net/smart-engagement-room-database?retryWrites=true&w=majority&appName=MyCluster"
+mongoose.connect(uri, { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch((err) => {
+        console.log("Could not connect to MongoDB");
+        console.log("Error: ", err);
+    });
+
 const dataProcessor = require("./utils/process-data");
 
 const app = express();

@@ -5,50 +5,42 @@ let maxStudentsHistory = [];
 let averageStudents = 0;
 let averageStudentsHistory = [];
 let labels = [];
+let version = 0;
 
 let myChart;
 
 createGraph();
-// window.onload = () => {
-//     loadRecentData();
-// }
+window.onload = () => {
+    loadRecentData();
+}
 setInterval(startListening, 2000);
 
 function loadRecentData() {
-    const recentStatistics = JSON.parse(localStorage.getItem('recentStatistics'));
-    if (recentStatistics) {
-        updateStatistics(recentStatistics, true);
-    }
+    startListening(true);
 }
 
-function startListening() {
+function startListening(load = false) {
     fetch("/number")
         .then((res) => res.json())
         .then((data) => {
-            if (data.status === "updated") {
-                localStorage.setItem("recentStatistics", JSON.stringify(data));
-                console.log("Data saved to Local Storage:", data);
-            }
-            updateStatistics(data);
+            updateStatistics(data, load);
         });
 }
 
 function updateStatistics(data, load = false) {
-    if (data.presentStudentsHistory.length === 0) {
-        console.log("No new data");
-        return;
-    } else if (data.presentStudentsHistory.length === presentStudentsHistory.length) {
-        console.log("No new data");
+    if (version === data.version) {
+        console.log("No new data, with version: ", data.version);
         return;
     }
-
-    if(load) {
-        console.log('Data loaded from Local Storage:', recentStatistics);
+    if (load) {
+        console.log("Loading data... with version: ", data.version);
         presentStudentsHistory = data.presentStudentsHistory;
         maxStudentsHistory = data.maxStudentsHistory;
         averageStudentsHistory = data.averageStudentsHistory;
         labels = data.labels;
+        version = data.version;
     } else {
+        console.log("Updating data... with version: ", data.version);
         presentStudentsHistory.push(data.presentStudentsHistory[data.presentStudentsHistory.length - 1]);
         maxStudentsHistory.push(data.maxStudentsHistory[data.maxStudentsHistory.length - 1]);
         averageStudentsHistory.push(data.averageStudentsHistory[data.averageStudentsHistory.length - 1]);
@@ -82,42 +74,6 @@ function updateGraph() {
     myChart.data.datasets[1].data = presentStudentsHistory;
     myChart.data.datasets[2].data = averageStudentsHistory;
     myChart.data.labels = labels;
-    myChart.update();
-}
-
-function updateStatisticsOld(data) {
-    if (data.totalNumber === currentStudents || data.totalNumber === undefined) {
-        console.log("No new data");
-        return;
-    }
-    currentStudents = data.totalNumber ? data.totalNumber : 0;
-    presentStudentsHistory.push(currentStudents);
-    maxStudents = Math.max(maxStudents, currentStudents);
-    maxStudentsHistory.push(maxStudents);
-    averageStudents = Math.round(
-        (averageStudents * (presentStudentsHistory.length - 1) + currentStudents) /
-        presentStudentsHistory.length,
-    );
-    averageStudentsHistory.push(averageStudents);
-    const presentStudentsCard = document.getElementById("present-students");
-    presentStudentsCard.classList.add("animation");
-    document.getElementById("present-students-number").innerText =
-        currentStudents;
-    const maxStudentsCard = document.getElementById("max-students");
-    if (maxStudents == currentStudents) {
-        maxStudentsCard.classList.add("animation");
-    }
-    document.getElementById("max-students-number").innerText = maxStudents;
-    const averageStudentsCard = document.getElementById("average-students");
-    averageStudentsCard.classList.add("animation");
-    document.getElementById("average-students-number").innerText =
-        averageStudents;
-    setTimeout(() => {
-        presentStudentsCard.classList.remove("animation");
-        maxStudentsCard.classList.remove("animation");
-        averageStudentsCard.classList.remove("animation");
-    }, 300);
-    labels.push(new Date().toLocaleTimeString());
     myChart.update();
 }
 

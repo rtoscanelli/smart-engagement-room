@@ -1,35 +1,50 @@
-let currentStudents = 0;
-let maxStudents = 0;
-let averageStudents = 0;
+const Statistics = require('../models/statistics');
+const documentId = '65f84592a0534b9ea2f24b02';
 
+let regions = [];
+let version = 0;
 let presentStudentsHistory = [];
 let maxStudentsHistory = [];
 let averageStudentsHistory = [];
-
 let labels = [];
-let status = "empty";
-
-let regions = [];
-
 
 function updateData(data) {
     console.log("Processing data...", data);
-
-    currentStudents = data.totalNumber;
-    presentStudentsHistory.push(currentStudents);
-
-    maxStudents = Math.max(maxStudents, currentStudents);
-    maxStudentsHistory.push(maxStudents);
-
-    averageStudents = Math.round(
-        (averageStudents * (presentStudentsHistory.length - 1) + currentStudents) /
-            presentStudentsHistory.length,
-    );
-    averageStudentsHistory.push(averageStudents);
-
-    labels.push(new Date().toLocaleTimeString());
-
-    status = "updated";
+        Statistics.findById(documentId)
+        .then(foundDocument => {
+            if (foundDocument) {
+                console.log('Found document:', foundDocument);
+                foundDocument.currentStudents = data.totalNumber;
+                presentStudentsHistory = foundDocument.presentStudentsHistory;
+                presentStudentsHistory.push(data.totalNumber);
+                maxStudentsHistory = foundDocument.maxStudentsHistory;
+                if (maxStudentsHistory.length === 0) {
+                    maxStudentsHistory.push(data.totalNumber);
+                } else {
+                    const maxStudents = Math.max(data.totalNumber, maxStudentsHistory[maxStudentsHistory.length - 1]);
+                    maxStudentsHistory.push(maxStudents);
+                }
+                averageStudentsHistory = foundDocument.averageStudentsHistory;
+                if (averageStudentsHistory.length === 0) {
+                    averageStudentsHistory.push(data.totalNumber);
+                } else {
+                    const averageStudents = Math.round(
+                        (averageStudentsHistory[averageStudentsHistory.length - 1] * (presentStudentsHistory.length - 1) + data.totalNumber) /
+                            presentStudentsHistory.length,
+                    );
+                    averageStudentsHistory.push(averageStudents);
+                }
+                labels = foundDocument.labels;
+                labels.push(new Date().toLocaleTimeString());
+                version = foundDocument.version;
+                foundDocument.version = version + 1;
+                foundDocument.save();
+                console.log('Document updated: ', foundDocument);
+            } else {
+                console.log('No document found with the provided ID');
+            }
+        })
+        .catch(err => console.error('Error finding document:', err))
 }
 
 function updateRegions(data) {
@@ -42,12 +57,26 @@ function updateRegions(data) {
 }
 
 function getCurrentStatistics() {
+    Statistics.findById(documentId)
+        .then(foundDocument => {
+            if (foundDocument) {
+                console.log('Found document:', foundDocument);
+                presentStudentsHistory = foundDocument.presentStudentsHistory;
+                maxStudentsHistory = foundDocument.maxStudentsHistory;
+                averageStudentsHistory = foundDocument.averageStudentsHistory;
+                labels = foundDocument.labels;
+                version = foundDocument.version;
+            } else {
+                console.log('No document found with the provided ID');
+            }
+        })
+        .catch(err => console.error('Error finding document:', err))
     const statistics = {
+        version,
         presentStudentsHistory,
         maxStudentsHistory,
         averageStudentsHistory,
         labels,
-        status,
     };
     console.log("Sending statistics...", statistics);
     return statistics;
@@ -60,17 +89,25 @@ function getRegions() {
 
 function resetData() {
     console.log("Resetting data...");
-    currentStudents = 0;
-    maxStudents = 0;
-    averageStudents = 0;
-
-    presentStudentsHistory = [];
-    maxStudentsHistory = [];
-    averageStudentsHistory = [];
-    labels = [];
-    status = "empty";
-
     regions = [];
+
+    Statistics.findById(documentId)
+        .then(foundDocument => {
+            if (foundDocument) {
+                console.log('Found document to reset:', foundDocument);
+                foundDocument.currentStudents = 0;
+                foundDocument.presentStudentsHistory = [];
+                foundDocument.maxStudentsHistory = [];
+                foundDocument.averageStudentsHistory = [];
+                foundDocument.labels = [];
+                foundDocument.version = 0;
+                foundDocument.save();
+                console.log('Document reset');
+            } else {
+                console.log('No document found with the provided ID');
+            }
+        })
+        .catch(err => console.error('Error finding document:', err))
 }
 
 module.exports = {
