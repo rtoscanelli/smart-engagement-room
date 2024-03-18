@@ -11,44 +11,29 @@ let myChart;
 
 createGraph();
 window.onload = () => {
-    loadRecentData();
+    startListening();
 }
 setInterval(startListening, 2000);
 
-function loadRecentData() {
-    startListening(true);
-}
-
-function startListening(load = false) {
+function startListening() {
     fetch("/number")
         .then((res) => res.json())
         .then((data) => {
-            updateStatistics(data, load);
+            updateStatistics(data);
         });
 }
 
-function updateStatistics(data, load = false) {
+function updateStatistics(data) {
     if (version == data.version) {
         console.log("No new data, with version: ", data.version, " and my version: ", version);
         return;
     }
-    if (load) {
-        console.log("Loading data... with version: ", data.version, " and my version: ", version);
-        presentStudentsHistory = data.presentStudentsHistory;
-        maxStudentsHistory = data.maxStudentsHistory;
-        averageStudentsHistory = data.averageStudentsHistory;
-        labels = data.labels;
-        version = data.version;
-    } else {
-        console.log("Updating data... with version: ", data.version, " and my version: ", version);
-        presentStudentsHistory.push(data.presentStudentsHistory[data.presentStudentsHistory.length - 1]);
-        maxStudentsHistory.push(data.maxStudentsHistory[data.maxStudentsHistory.length - 1]);
-        averageStudentsHistory.push(data.averageStudentsHistory[data.averageStudentsHistory.length - 1]);
-        labels.push(data.labels[data.labels.length - 1]);
-        version = data.version;
-    }
 
-    console.log(presentStudentsHistory, maxStudentsHistory, averageStudentsHistory, labels);
+    presentStudentsHistory = data.presentStudentsHistory;
+    maxStudentsHistory = data.maxStudentsHistory;
+    averageStudentsHistory = data.averageStudentsHistory;
+    labels = data.labels;
+    version = data.version;
 
     let presentStudents = presentStudentsHistory ? presentStudentsHistory[presentStudentsHistory.length - 1] : 0;
     let maxStudents = maxStudentsHistory ? maxStudentsHistory[maxStudentsHistory.length - 1] : 0;
