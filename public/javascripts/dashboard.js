@@ -35,9 +35,15 @@ function updateStatistics(data) {
     labels = data.labels;
     version = data.version;
 
-    let presentStudents = presentStudentsHistory.lenght > 0 ? presentStudentsHistory[presentStudentsHistory.length - 1] : 0;
-    let maxStudents = maxStudentsHistory.lenght > 0 ? maxStudentsHistory[maxStudentsHistory.length - 1] : 0;
-    let averageStudents = averageStudentsHistory.lenght > 0 ? averageStudentsHistory[averageStudentsHistory.length - 1] : 0;
+    if (presentStudentsHistory.length > 0) {
+        presentStudents = presentStudentsHistory[presentStudentsHistory.length - 1];
+        maxStudents = maxStudentsHistory[maxStudentsHistory.length - 1];
+        averageStudents = averageStudentsHistory[averageStudentsHistory.length - 1];
+    } else {
+        presentStudents = 0;
+        maxStudents = 0;
+        averageStudents = 0;
+    }
 
     updateCards("present-students", presentStudents);
     updateCards("max-students", maxStudents);
