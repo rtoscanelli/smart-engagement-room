@@ -83,15 +83,30 @@ app.get("/", (req, res) => {
 });
 
 app.get("/attendance", (req, res) => {
-    res.sendFile(path.join(__dirname, "views", "attendance.html"));
+    if (req.session.isAuthenticated) {
+        res.sendFile(path.join(__dirname, "views", "attendance.html"));
+    }
+    else {
+        res.redirect('/login');
+    }
 });
 
-app.get("/classroom-lights", (_, res) => {
-	res.sendFile(path.join(__dirname, "views", "classroom-lights.html"));
+app.get("/classroom-lights", (req, res) => {
+    if (req.session.isAuthenticated) {
+        res.sendFile(path.join(__dirname, "views", "classroom-lights.html"));
+    }
+    else {
+        res.redirect('/login');
+    }
 });
 
-app.get("/admin", (_, res) => {
-    res.sendFile(path.join(__dirname, "views", "admin.html"));
+app.get("/admin", (req, res) => {
+    if (req.session.isAuthenticated) {
+        res.sendFile(path.join(__dirname, "views", "admin.html"));
+    }
+    else {
+        res.redirect('/login');
+    }
 });
 
 users = [
@@ -99,11 +114,7 @@ users = [
 ];
 
 app.get('/login', (req, res) => {
-    if (true) {
-        res.sendFile(path.join(__dirname, "views", 'login.html'));
-    } else {
-        res.redirect('/');
-    }
+    res.sendFile(path.join(__dirname, "views", 'login.html'));
 });
 
 app.post('/login', (req, res) => {
