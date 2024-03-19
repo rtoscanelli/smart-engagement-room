@@ -36,8 +36,18 @@ app.post("/data", (req, res) => {
     res.sendStatus(200);
 });
 
+app.post("/api/attendance", (req, res) => {
+    dataProcessor.updateAttendance(req.body);
+    res.sendStatus(200);
+});
+
 app.post("/regions", (req, res) => {
     dataProcessor.updateRegions(req.body);
+    res.sendStatus(200);
+});
+
+app.post("/reset-data", (_, res) => {
+    dataProcessor.resetData();
     res.sendStatus(200);
 });
 
@@ -45,13 +55,12 @@ app.get("/number", (_, res) => {
     res.send(dataProcessor.getCurrentStatistics());
 });
 
-app.get("/regions-data", (_, res) => {
-    res.send(dataProcessor.getRegions());
+app.get("/api/get-attendance", (_, res) => {
+    res.send(dataProcessor.getAttendance());
 });
 
-app.post("/reset-data", (_, res) => {
-    dataProcessor.resetData();
-    res.sendStatus(200);
+app.get("/regions-data", (_, res) => {
+    res.send(dataProcessor.getRegions());
 });
 
 app.get("/", (req, res) => {
@@ -60,6 +69,10 @@ app.get("/", (req, res) => {
     } else {
         res.redirect('/login');
     }
+});
+
+app.get("/attendance", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "attendance.html"));
 });
 
 app.get("/classroom-lights", (_, res) => {

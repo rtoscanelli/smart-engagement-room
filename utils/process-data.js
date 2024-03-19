@@ -8,6 +8,8 @@ let maxStudentsHistory = [];
 let averageStudentsHistory = [];
 let labels = [];
 
+let attendance = [];
+
 function updateData(data) {
     console.log("Processing data...", data);
         Statistics.findById(documentId)
@@ -87,6 +89,20 @@ function getRegions() {
     return regions;
 }
 
+function updateAttendance(data) {
+    console.log("Processing attendance...", data);
+    attendance.push({
+        "ist-number": data["ist-number"],
+        "attendance": data["attendance"],
+        "time": new Date().toLocaleTimeString(),
+    });
+}
+
+function getAttendance() {
+    console.log("Sending attendance...", attendance);
+    return attendance;
+}
+
 function resetData() {
     console.log("Resetting data...");
     regions = [];
@@ -115,5 +131,7 @@ module.exports = {
     getCurrentStatistics,
     updateRegions,
     getRegions,
+    updateAttendance,
+    getAttendance,
     resetData,
 };
