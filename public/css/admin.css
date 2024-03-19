@@ -9,13 +9,11 @@
     box-sizing: border-box;
     font-family: 'Poppins';
     --primary-color: #07b0ff;
-    --secondary-color: #dedcff;
     --text-color: #050315;
     --background-color: #fbfbfe;
     --header-color: #ffffff;
-    --max-students-color: #07b0ff;
-    --average-students-color: #00b894;
-    --present-students-color: #ff7675;
+    --submit-color: #00b894;
+    --hover-color: #ff7675;
 }
 
 body {
@@ -92,6 +90,7 @@ nav ul li a:hover {
     color: var(--text-color);
     border-bottom: 2px solid var(--text-color);
 }
+
 main {
     margin: 2rem auto;
     width: 80%;
@@ -103,27 +102,41 @@ main {
 }
 
 button {
-    padding: 0.5rem 1rem;
+    font-family: main-font;
+    font-size: 20px;
+    height: 60px;
+    width: 250px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: var(--primary-color);
-    color: var(--header-color);
-    font-weight: bold;
-    font-size: 2rem;
-    transition: background-color 0.3s ease;
-    transition: transform 0.3s ease;
+    border-radius: 10px;
+    color: white;
+    background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
 }
 
 button:hover {
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-    transform: translateY(-10px);
+    cursor: pointer;
+    background-position: right center;
+    background-size: 200% auto;
+    animation: pulse512 1.5s infinite;
+    background-image: linear-gradient(30deg, #ff7675, #FC0808);
 }
 
 button:active {
-    background-color: var(--present-students-color);
-    color: var(--header-color);
+    background-image: linear-gradient(30deg, #00b894, #4ce3f7);
+    background-color: var(--submit-color);
+}
+
+@keyframes pulse512 {
+    0% {
+        box-shadow: 0 0 0 0 #FC0808;
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgb(252 8 8 / 0%);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgb(252 8 8 / 0%);
+    }
 }
 
 footer {
