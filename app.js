@@ -3,6 +3,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 const mongoose = require("mongoose");
 const uri = "mongodb+srv://Admin:mongodbadmin@mycluster.n2rbgja.mongodb.net/smart-engagement-room-database?retryWrites=true&w=majority&appName=MyCluster"
@@ -18,21 +19,27 @@ mongoose.connect(uri, {
         console.log("Error: ", err);
     });
 
-const dataProcessor = require("./utils/process-data");
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+
+const sessionStore = MongoStore.create({
+    mongoUrl: uri,
+    collection: 'sessions',
+});
+
+const dataProcessor = require("./utils/process-data");
+
 app.use(session({
-    cookie: {
-        sameSite: 'none',
-        secure: 'auto',
-    },
     secret: 'secret',
     resave: false,
     saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24,
+    },
 }));
 
 app.post("/data", (req, res) => {
