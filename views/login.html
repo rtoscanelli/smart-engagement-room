@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/login.css" rel="stylesheet">
+        <script src="javascripts/login.js" defer></script>
+    </head>
+    <body>
+        <div class="main">
+            <div class="header">
+                <h1>Welcome</h1>
+            </div>
+            <div class="form">
+                <form id="loginForm" action="">
+                    <fieldset>
+                        <div class="input">
+                            <label for="Username">Username</label>
+                            <input type="text" id="username" name="username" required> 
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="input">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                            <span class="password-error-message" aria-live="polite"></span>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="submit">
+                <button type="submit" form="loginForm">Login</button>
+            </div>
+        </div>
+        <div class="background">
+            <div class="logo-container">
+                <div class="logo-background">
+                    <img src="/images/IST_Logo.png" alt="IST Logo" id="logo" />
+                </div>
+                <h1>Smart Engagement Room</h1>
+            </div>
+        </div>
+    </body>
+</html>
+

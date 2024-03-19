@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const session = require('express-session');
 
 const mongoose = require("mongoose");
 const uri = "mongodb+srv://Admin:mongodbadmin@mycluster.n2rbgja.mongodb.net/smart-engagement-room-database?retryWrites=true&w=majority&appName=MyCluster"
@@ -24,6 +25,11 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true,
+}));
 
 app.post("/data", (req, res) => {
     dataProcessor.updateData(req.body);
@@ -48,8 +54,12 @@ app.post("/reset-data", (_, res) => {
     res.sendStatus(200);
 });
 
-app.get("/", (_, res) => {
-	res.sendFile(path.join(__dirname, "views", "index.html"));
+app.get("/", (req, res) => {
+    if (req.session.isAuthenticated) {
+        res.sendFile(path.join(__dirname, "views", "index.html"));
+    } else {
+        res.redirect('/login');
+    }
 });
 
 app.get("/classroom-lights", (_, res) => {
@@ -58,6 +68,33 @@ app.get("/classroom-lights", (_, res) => {
 
 app.get("/admin", (_, res) => {
     res.sendFile(path.join(__dirname, "views", "admin.html"));
+});
+
+users = [
+    { username: 'grupo6', password: 'ami' },
+];
+
+app.get('/login', (req, res) => {
+    if (true) {
+        res.sendFile(path.join(__dirname, "views", 'login.html'));
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    const user = users.find(u => u.username === username);
+
+    if (!user || user.password !== password) {
+        return res.status(401).json({ success: false, message: 'Invalid username or password' });
+    }
+    console.log("Login successful");
+    req.session.isAuthenticated = true;
+    req.session.user = user;
+
+    res.json({ success: true, message: 'Login successful' });
 });
 
 const port = process.env.PORT || 3000;

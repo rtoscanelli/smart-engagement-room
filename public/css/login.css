@@ -1,0 +1,219 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+    --primary-color: #07b0ff;
+    --text-color: #050315;
+    --background-color: #fbfbfe;
+    --header-color: #ffffff;
+    --submit-color: #00b894;
+    --error-color: #ff7675;
+    --main-width: 30vw;
+    --background-width: 70vw;
+    --header-height: 20vh;
+    --form-height: 35vh;
+    --submit-height: 45vh;
+}
+
+body {
+    display: flex;
+    font-family: 'Poppins';
+}
+
+@font-face {
+    font-family: main-font;
+    src: url(/assets/Poppins-Regular.ttf);
+}
+
+@font-face {
+    font-family: logo-font;
+    src: url(/assets/Norse-Bold.otf);
+}
+
+.main {
+    width: var(--main-width);
+    min-width: 400px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+}
+
+.main > div {
+    box-sizing: border-box;
+}
+
+.header {
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--text-color);
+}
+
+.header > h1 {
+    margin: 0;
+    font-size: 40px;
+}
+
+.form {
+    margin: 20px 0px;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.form > h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+    display: flex;
+    gap: 15%;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+}
+
+.input > label {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.input > input {
+    padding: 10px;
+    width: 300px;
+    box-sizing: border-box;
+    font-size: 20px;
+    font-family: main-font;
+    border-radius: 10px;
+    border: 2px #E5E7EB solid;
+}
+
+input.error {
+    border: 2px solid var(--error-color);
+}
+
+.password-error-message {
+    color: red;
+    font-size: 15px;
+}
+
+.input > input:focus {
+    border: 2px solid var(--primary-color);
+    outline: none;
+    box-shadow: 0px 0px 5px 0px;
+}
+
+.submit {
+    padding: 20px 40px;
+}
+
+.submit > button {
+    font-family: main-font;
+    font-size: 20px;
+    height: 60px;
+    width: 250px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background-color: var(--primary-color);
+    background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+}
+
+.submit > button:hover {
+    cursor: pointer;
+    background-position: right center;
+    background-size: 200% auto;
+    animation: pulse512 1.5s infinite;
+}
+
+.submit > button:active {
+    background-image: linear-gradient(30deg, #00b894, #4ce3f7);
+    background-color: var(--submit-color);
+}
+
+@keyframes pulse512 {
+    0% {
+        box-shadow: 0 0 0 0 #05bada66;
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+}
+
+.background {
+    width: var(--background-width);
+    background-image: linear-gradient(30deg, #07b0ff, #4ce3f7);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.blue-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 255, 0.5);
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-background {
+    background-color: #ffffff;
+    width: 200px;
+    height: 200px;
+    border-radius: 25%;
+    position: relative;
+}
+
+#logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    width: 125px;
+    height: auto;
+}
+
+.logo-container > h1 {
+    font-family: logo-font;
+    font-size: 60px;
+    color: var(--header-color);
+}
