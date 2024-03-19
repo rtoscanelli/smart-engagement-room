@@ -1,3 +1,5 @@
+let versions = [0,0,0,0,0];
+
 window.onload = () => {
     startListening();
 }
@@ -15,12 +17,15 @@ function startListening() {
 
 function updateAttendance(data) {
     for (let i = 0; i < data.length; i++) {
-        updateAttendanceRow(data[i]);
+        if (data[i].version > versions[i]) {
+            versions[i] = data[i].version;
+            updateAttendanceRow(data[i]);
+        }
     }
 }
 
 function updateAttendanceRow(data) {
-    const id = data["ist-number"];
+    const id = data["istNumber"];
     const status = data["attendance"];
     const time = data["time"];
     const tableRow = document.getElementById(id);

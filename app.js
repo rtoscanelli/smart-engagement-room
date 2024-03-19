@@ -56,7 +56,7 @@ app.get("/number", (_, res) => {
 });
 
 app.get("/api/get-attendance", (_, res) => {
-    res.send(dataProcessor.getAttendance());
+    res.send(dataProcessor.getAttendances());
 });
 
 app.get("/regions-data", (_, res) => {

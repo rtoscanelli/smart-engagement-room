@@ -1,6 +1,8 @@
 const Statistics = require('../models/statistics');
 const documentId = '65f84592a0534b9ea2f24b02';
 
+const Attendance = require('../models/attendance');
+
 let regions = [];
 let version = 0;
 let presentStudentsHistory = [];
@@ -8,7 +10,7 @@ let maxStudentsHistory = [];
 let averageStudentsHistory = [];
 let labels = [];
 
-let attendance = [];
+let attendances = [];
 
 function updateData(data) {
     console.log("Processing data...", data);
@@ -91,16 +93,30 @@ function getRegions() {
 
 function updateAttendance(data) {
     console.log("Processing attendance...", data);
-    attendance.push({
-        "ist-number": data["ist-number"],
-        "attendance": data["attendance"],
-        "time": new Date().toLocaleTimeString(),
-    });
+    Attendance.findOne({ istNumber: data["ist-number"] })
+        .then(document => {
+            if (document) {
+                document.attendance = data["attendance"];
+                document.time = new Date().toLocaleTimeString();
+                document.version = document.version + 1;
+                document.save();
+                console.log('Document updated:', document);
+            } else {
+                console.log('No document found with the provided ID');
+            }
+        });
 }
 
-function getAttendance() {
-    console.log("Sending attendance...", attendance);
-    return attendance;
+function getAttendances() {
+    Attendance.find({})
+        .then(documents => {
+            if (documents.length === 0) {
+                console.log('No documents found');
+            }
+            attendances = documents;
+        });
+    console.log("Sending attendances...", attendances);
+    return attendances;
 }
 
 function resetData() {
@@ -110,7 +126,6 @@ function resetData() {
     Statistics.findById(documentId)
         .then(foundDocument => {
             if (foundDocument) {
-                console.log('Found document to reset:', foundDocument);
                 foundDocument.currentStudents = 0;
                 foundDocument.presentStudentsHistory = [];
                 foundDocument.maxStudentsHistory = [];
@@ -118,12 +133,26 @@ function resetData() {
                 foundDocument.labels = [];
                 foundDocument.version = 0;
                 foundDocument.save();
-                console.log('Document reset');
+                console.log('Statistics reset');
             } else {
-                console.log('No document found with the provided ID');
+                console.log('No statistics found');
             }
         })
         .catch(err => console.error('Error finding document:', err))
+
+    Attendance.find({})
+        .then(documents => {
+            if (documents.length === 0) {
+                console.log('No attendances found');
+            }
+            documents.forEach(document => {
+                document.attendance = false;
+                document.time = "";
+                document.version = 0;
+                document.save();
+            });
+            console.log('Attendances reset');
+        });
 }
 
 module.exports = {
@@ -132,6 +161,6 @@ module.exports = {
     updateRegions,
     getRegions,
     updateAttendance,
-    getAttendance,
+    getAttendances,
     resetData,
 };
