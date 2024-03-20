@@ -1,11 +1,8 @@
 let presentStudentsHistory = [];
-let maxStudents = 0;
 let maxStudentsHistory = [];
-let averageStudents = 0;
 let averageStudentsHistory = [];
 let labels = [];
 let version = 0;
-
 let myChart;
 
 createGraph();
@@ -34,15 +31,15 @@ function updateStatistics(data) {
     labels = data.labels;
     version = data.version;
 
+    let presentStudents = 0;
+    let maxStudents = 0;
+    let averageStudents = 0;
+
     if (presentStudentsHistory.length > 0) {
         presentStudents = presentStudentsHistory[presentStudentsHistory.length - 1];
         maxStudents = maxStudentsHistory[maxStudentsHistory.length - 1];
         averageStudents = averageStudentsHistory[averageStudentsHistory.length - 1];
-    } else {
-        presentStudents = 0;
-        maxStudents = 0;
-        averageStudents = 0;
-    }
+    } 
 
     updateCards("present-students", presentStudents);
     updateCards("max-students", maxStudents);
