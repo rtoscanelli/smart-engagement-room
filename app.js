@@ -30,8 +30,6 @@ const sessionStore = MongoStore.create({
     collection: 'sessions',
 });
 
-const dataProcessor = require("./utils/process-data");
-
 app.use(session({
     secret: 'secret',
     resave: false,
@@ -42,95 +40,12 @@ app.use(session({
     },
 }));
 
-app.post("/data", (req, res) => {
-    dataProcessor.updateData(req.body);
-    res.sendStatus(200);
-});
-
-app.post("/api/attendance", (req, res) => {
-    dataProcessor.updateAttendance(req.body);
-    res.sendStatus(200);
-});
-
-app.post("/regions", (req, res) => {
-    dataProcessor.updateRegions(req.body);
-    res.sendStatus(200);
-});
-
-app.post("/reset-data", (_, res) => {
-    dataProcessor.resetData();
-    res.sendStatus(200);
-});
-
-app.get("/number", (_, res) => {
-    res.send(dataProcessor.getCurrentStatistics());
-});
-
-app.get("/api/get-attendance", (_, res) => {
-    res.send(dataProcessor.getAttendances());
-});
-
-app.get("/regions-data", (_, res) => {
-    res.send(dataProcessor.getRegions());
-});
-
-app.get("/", (req, res) => {
-    if (req.session.isAuthenticated) {
-        res.sendFile(path.join(__dirname, "views", "index.html"));
-    } else {
-        res.redirect('/login');
-    }
-});
-
-app.get("/attendance", (req, res) => {
-    if (req.session.isAuthenticated) {
-        res.sendFile(path.join(__dirname, "views", "attendance.html"));
-    }
-    else {
-        res.redirect('/login');
-    }
-});
-
-app.get("/classroom-lights", (req, res) => {
-    if (req.session.isAuthenticated) {
-        res.sendFile(path.join(__dirname, "views", "classroom-lights.html"));
-    }
-    else {
-        res.redirect('/login');
-    }
-});
-
-app.get("/admin", (req, res) => {
-    if (req.session.isAuthenticated) {
-        res.sendFile(path.join(__dirname, "views", "admin.html"));
-    }
-    else {
-        res.redirect('/login');
-    }
-});
-
-users = [
-    { username: 'grupo6', password: 'ami' },
-];
-
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, "views", 'login.html'));
-});
-
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-
-    const user = users.find(u => u.username === username);
-
-    if (!user || user.password !== password) {
-        return res.status(401).json({ success: false, message: 'Invalid username or password' });
-    }
-    console.log("Login successful");
-    req.session.isAuthenticated = true;
-    req.session.user = user;
-
-    res.json({ success: true, message: 'Login successful' });
-});
+const webpages = require("./routes/webpages");
+const clientApi = require("./routes/client-api");
+const postApi = require("./routes/post-api");
+app.use("/", webpages);
+app.use("/api", clientApi);
+app.use("/api", postApi);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

@@ -17,7 +17,7 @@ function startListening() {
 
 function updateAttendance(data) {
     for (let i = 0; i < data.length; i++) {
-        if (data[i].version > versions[i]) {
+        if (data[i].version != versions[i]) {
             versions[i] = data[i].version;
             updateAttendanceRow(data[i]);
         }

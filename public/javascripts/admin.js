@@ -1,5 +1,5 @@
 function resetData() {
-    fetch("/reset-data", {
+    fetch("/api/post-reset-data", {
         method: "POST",
     })
         .then((res) => {

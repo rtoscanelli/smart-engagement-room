@@ -1,4 +1,3 @@
-let currentStudents = 0;
 let presentStudentsHistory = [];
 let maxStudents = 0;
 let maxStudentsHistory = [];
@@ -16,7 +15,7 @@ window.onload = () => {
 setInterval(startListening, 2000);
 
 function startListening() {
-    fetch("/number")
+    fetch("/api/get-statistics")
         .then((res) => res.json())
         .then((data) => {
             updateStatistics(data);

@@ -12,7 +12,7 @@ function loadRecentData() {
 }
 
 function startListening() {
-    fetch("/regions-data")
+    fetch("/api/get-regions")
         .then(res=> res.json())
         .then((data) => {
             localStorage.setItem('recentLightsData', JSON.stringify(data));
